@@ -1,10 +1,10 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
 import Main from "@/Layout/main";
-import Message from "@/components/Message"
-import Award from "@/components/Award"
-import Status from "@/components/Status"
-import Punish from "@/components/Punish"
+import sendOut from "@/components/sendOut.vue"
 import Login from "@/components/Login"
+import Echarts from "@/components/Echart.vue"
+import receive from  "@/components/receive.vue"
+import tosend from "@/components/tosend.vue"
 
 const routes = [
     {
@@ -19,24 +19,25 @@ const routes = [
         component: Main,
         children: [
             {
-                path: '/Message',
-                name: 'Message',
-                component: Message
+                path: '/sendOut',
+                name: 'sendOut',
+                component: sendOut,
+
             },
             {
-                path: '/Status',
-                name: 'Status',
-                component: Status
+                path: '/receive',
+                name: 'receive',
+                component: receive
             },
             {
-                path: '/Award',
-                name: 'Award',
-                component: Award
+                path: '/tosend',
+                name: 'tosend',
+                component: tosend
             },
             {
-                path: '/Punish',
-                name: 'Punish',
-                component: Punish,
+                path: '/Echarts',
+                name: 'Echarts',
+                component: Echarts,
             },
         ]
     },

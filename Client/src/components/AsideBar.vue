@@ -1,33 +1,41 @@
 <template>
-
+<!--  <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">-->
+<!--    <el-radio-button :label="false">expand</el-radio-button>-->
+<!--    <el-radio-button :label="true">collapse</el-radio-button>-->
+<!--  </el-radio-group>-->
   <el-menu
-      style="width: 200px; min-height: calc(100vh - 50px)"
       router
   >
-    <el-menu-item index="Message"><el-icon><User /></el-icon>学生信息录入</el-menu-item>
-    <el-menu-item index="Status"><el-icon><Stamp /></el-icon>学籍管理</el-menu-item>
-    <el-sub-menu>
+    <el-menu-item index="Echarts">首页</el-menu-item>
+
+    <el-sub-menu index="1">
       <template #title>
-        <el-icon><Document /></el-icon>
-        <span>奖惩管理</span>
+        <span>运单追踪</span>
       </template>
-      <el-menu-item index="Award" title="奖励管理"><el-icon><Check /></el-icon>奖励管理</el-menu-item>
-      <el-menu-item index="Punish" title="处罚管理"><el-icon><Close /></el-icon>处罚管理</el-menu-item>
+      <el-menu-item-group>
+        <el-menu-item index="sendOut">我寄的</el-menu-item>
+        <el-menu-item index="receive">我收的</el-menu-item>
+      </el-menu-item-group>
     </el-sub-menu>
+    <el-menu-item index="tosend">我要寄件</el-menu-item>
+
 
   </el-menu>
 </template>
 
-<script >
+<script>
 export default {
   name:"AsideBar",
   data(){
+    return{
+      isCollapse: false
+    }
 
   }
 }
 
+
 </script>
 
 <style scoped>
-
 </style>
