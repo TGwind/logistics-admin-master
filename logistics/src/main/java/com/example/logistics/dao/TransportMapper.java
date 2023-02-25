@@ -7,6 +7,6 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 public interface TransportMapper extends BaseMapper<Transport> {
-    @Select("select * from transport where pid=#{pid}")
+    @Select("select * from transport where pid=#{pid} order by date desc")
     List<Transport> selectBypid(String pid);
 }

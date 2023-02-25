@@ -29,10 +29,10 @@
 </template>
 
 <script>
-import AsideBar from "@/components/user/AsideBar.vue"
+import AsideBar from "@/components/admin/AsideBar.vue"
 
 export default {
-  name: "main",
+  name: "admin",
   components: {AsideBar},
   created() {
     // this.$router.push("Echarts")

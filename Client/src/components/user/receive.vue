@@ -2,10 +2,10 @@
   <div>
 
   </div>
-<!--  查询单号-->
+  <!--  查询单号-->
   <div style="margin-top: 20px">
     <el-row>
-      <el-col span="16" :offset="1" >
+      <el-col span="16" :offset="1">
         <el-input v-model="search" placeholder="请输入快递单号"/>
       </el-col>
       <el-col span="2" :offset="1">
@@ -15,67 +15,24 @@
   </div>
 
   <div>
-    <el-dialog title="新增学生" v-model="dialogVisible" width="50%">
-      <el-form :model="student" label-width="200px">
-        <el-form-item label="姓名">
-          <el-input v-model="student.name" style="width: 50%"></el-input>
-        </el-form-item>
-        <el-form-item label="性别">
-          <el-radio-group v-model="student.sex">
-            <el-radio label="男">男</el-radio>
-            <el-radio label="女">女</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="院系">
-          <el-select v-model="student.dept" style="width: 50%" placeholder="请选择院系">
-            <el-option
-                v-for="item in dept"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="班级">
-          <el-select v-model="student.lass" style="width: 50%" placeholder="请选择班级">
-            <el-option
-                v-for="item in lass"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="生日">
-          <el-date-picker
-              v-model="student.birth"
-              type="date"
-              value-format="yyyy-MM-dd"
-              placeholder="选择日期">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="籍贯">
-          <el-input v-model="student.nativePlace" style="width: 50%"></el-input>
-        </el-form-item>
-      </el-form>
-      <span class="dialog-footer">
-            <el-button @click="dialogVisible = false">取 消</el-button>
-            <el-button type="primary" @click="save">确 定</el-button>
-          </span>
-    </el-dialog>
 
-<!--    展示列表-->
+    <!--    展示列表-->
     <el-table :data="tableData" style="width: 100% ;margin-top: 30px"
               ref="multipleTableRef"
               @selection-change="handleSelectionChange">
-<!--      <el-table-column type="selection" width="40"/>-->
+      <!--      <el-table-column type="selection" width="40"/>-->
       <el-table-column prop="id" label="单号" width="120px"/>
       <el-table-column prop="logistics" label="承运方"/>
       <el-table-column prop="content" label="包裹名称"/>
       <el-table-column prop="sendAddress" label="发件地址"/>
       <el-table-column prop="sendDate" label="发件日期"/>
       <el-table-column prop="receiveAddress" label="收件地址"/>
-      <el-table-column prop="receiveDate" label="收件日期"/>
+      <el-table-column prop="receiveDate" label="收件日期">
+        <template #default="scope">
+          <el-button v-if="scope.row.receiveDate==null" type="primary" @click="takeGoods(scope.row)">确认收货
+          </el-button>
+        </template>
+      </el-table-column>
       <el-table-column prop="receiver" label="收件人"/>
       <el-table-column prop="receiverNumber" label="手机号"/>
 
@@ -93,7 +50,8 @@
         <!--    <div style="height: 0.5rem;width: 100%;background-color:#f7f7f7"></div>-->
         <!--物流跟踪-->
         <div style="padding-bottom: 0.5rem;">
-          <div class="bg-white" style="width: 92%; margin-left: 4%;margin: auto;padding-left: 15px;padding-right: 15px;">
+          <div class="bg-white"
+               style="width: 92%; margin-left: 4%;margin: auto;padding-left: 15px;padding-right: 15px;">
             <!--        <div style="font-size: 1.2rem;color: #111111;">物流跟踪&lt;!&ndash;物流跟踪&ndash;&gt;</div>-->
             <div>
               <div class="track-rcol">
@@ -125,10 +83,10 @@
           </div>
         </div>
       </div>
-<!--      <span class="dialog-footer">-->
-<!--            <el-button @click="alterDialogVisible = false">取 消</el-button>-->
-<!--            <el-button type="primary" @click="alterConfirm">确 定</el-button>-->
-<!--          </span>-->
+      <!--      <span class="dialog-footer">-->
+      <!--            <el-button @click="alterDialogVisible = false">取 消</el-button>-->
+      <!--            <el-button type="primary" @click="alterConfirm">确 定</el-button>-->
+      <!--          </span>-->
     </el-dialog>
   </div>
 
@@ -137,33 +95,16 @@
 
 <script>
 import request from "@/utils/request";
+import global_val from "@/utils/global_val";
 
 export default {
   name: "Message",
   data() {
     return {
-
-      value1: "",
       search: null,
-      student: {
-        id: null,
-        name: null,
-        sex: null,
-        dept: null,
-        lass: null,
-        birth: "",
-        nativePlace: null,
-      },
+
       ids: [],//存储id序列
-      alterForm: {
-        id: null,
-        name: null,
-        sex: null,
-        dept: null,
-        lass: null,
-        birth: null,
-        nativePlace: null,
-      },
+
       tableData: [
         {
           id: 1,
@@ -179,38 +120,7 @@ export default {
           receiverNumber: 18570418284
         }
       ],
-      dept: [
-        {
-          value: "大数据",
-          label: "大数据"
-        },
-        {
-          value: "信息安全",
-          label: "信息安全"
-        },
-        {
-          value: "软件工程",
-          label: "软件工程"
-        },
-        {
-          value: "人工智能",
-          label: "人工智能"
-        }
-      ],
-      lass: [
-        {
-          value: "1班",
-          label: "1班"
-        },
-        {
-          value: "2班",
-          label: "2班"
-        },
-        {
-          value: "3班",
-          label: "3班"
-        },
-      ],
+
       logisticsList: [],
       dialogVisible: false,
       alterDialogVisible: false,
@@ -221,6 +131,41 @@ export default {
     this.show(); //每次点卡页面就数据渲染
   },
   methods: {
+    //获取的日期
+    getdate() {
+      // var date = new Date();
+      // var seperator1 = "-";
+      // var year = date.getFullYear();
+      // var month = date.getMonth() + 1;
+      // var strDate = date.getDate();
+      //
+      // if (month >= 1 && month <= 9) {
+      //   month = "0" + month;
+      // }
+      // if (strDate >= 0 && strDate <= 9) {
+      //   strDate = "0" + strDate;
+      // }
+      // var currentdate = year + " 年 " + month + " 月 " + strDate + " 日 ";
+      // return currentdate;
+    },
+    takeGoods(row) {
+      //当前日期
+      var date = new Date();
+      console.log(date)
+      request.post("/package/checkGoods",
+          {
+            id: row.id,
+            receiveDate: date,
+            receiver: global_val.name
+          }
+      ).then(res => {
+        // console.log(res)
+        this.$message.success("确认收货成功")
+        this.show()
+      })
+
+
+    },
     alter(row) {
       this.alterDialogVisible = true;
       console.log(row.id)
@@ -268,20 +213,30 @@ export default {
       })
     },
     show() {
-     request.get("/package/queryAll").then(res => {
+      let name = global_val.name
+      request.get("/package/receive/" + name).then(res => {
         console.log(res)
         this.tableData = res.data;
+        // this.tableData.forEach(function (item) {
+        //   if (item.receiveDate == null) { //如果收件日期为空设为待收
+        //     item.receiveDate = "待收"
+        //   }
+        // })
       })
     },
     toSearch() {
-      request.get("http://120.77.179.69:8765/student/" + this.search).then(res => {
-        console.log(res)
-        if (res.data == null) this.$message.success("暂无数据")
-        else {
-          this.$message.success("查询成功")
-        }
-        this.tableData = [res.data]
-      })
+      if (this.search == null) {
+        this.$message.warning("请输入快递单号")
+      } else {
+        request.get("/package/findReceive/" + this.search + "/" + global_val.name).then(res => {
+          console.log(res)
+          if (res.data == null || res.data.length == 0) this.$message.success("暂无数据")
+          else {
+            this.$message.success("查询成功")
+          }
+          this.tableData = res.data
+        })
+      }
     }
   }
 }

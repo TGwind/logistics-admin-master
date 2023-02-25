@@ -36,7 +36,8 @@
 
 <script>
 import request from "@/utils/request";
-
+import global_val from "@/utils/global_val";
+import { ElMessage } from 'element-plus'
 export default {
   name: "Login",
   data() {
@@ -73,11 +74,28 @@ export default {
       request.post("/login", this.form).then(res => {
         // console.log(res)
         if ("0" === res.code) {
-          this.$message({
-            type: "success",
-            message: "登录成功",
+          global_val.set_name(this.form.name) //设置全局变量
+          global_val.set_permission(this.form.permission)
+          let permission = global_val.permission
+          ElMessage({
+            message: '登录成功',
+            type: 'success',
           })
-          this.$router.push("/Echarts")
+          console.log("权限"+permission)
+          if(0 == permission){
+            this.$router.push("/Main/userEcharts")
+
+          }else if(1 == permission){
+            this.$router.push("/deliver/deliverEcharts")
+
+          }else if(2 == permission){
+            this.$router.push("/admin/adminEcharts")
+
+          }
+          // this.$message({
+          //   type: "success",
+          //   message: "登录成功",
+          // })
         } else {
           this.$message.error("用户名或密码错误")
         }

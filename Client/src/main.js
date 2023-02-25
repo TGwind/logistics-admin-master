@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-
+import global from '@/utils/global_val' //导入全局变量
 import '../src/assets/global.css' //引入css
 
 // ! element-plus vue3.0

@@ -6,15 +6,15 @@
   <el-menu
       router
   >
-    <el-menu-item index="Echarts">首页</el-menu-item>
+    <el-menu-item index="/Main/userEcharts">首页</el-menu-item>
 
     <el-sub-menu index="1">
       <template #title>
         <span>运单追踪</span>
       </template>
       <el-menu-item-group>
-        <el-menu-item index="sendOut">我寄的</el-menu-item>
-        <el-menu-item index="receive">我收的</el-menu-item>
+        <el-menu-item index="/Main/sendOut">我寄的</el-menu-item>
+        <el-menu-item index="/Main/receive">我收的</el-menu-item>
       </el-menu-item-group>
     </el-sub-menu>
     <el-menu-item index="tosend">我要寄件</el-menu-item>

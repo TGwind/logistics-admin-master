@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%;height: 900px">
+  <div style="width: 100%;height: 800px">
     <v-chart class="chart" :option="option" autoresize />
   </div>
 
@@ -16,6 +16,7 @@ import {
 } from 'echarts/components';
 import VChart, { THEME_KEY } from 'vue-echarts';
 import { ref, provide } from 'vue';
+import ECharts from "vue-echarts";
 
 use([
   CanvasRenderer,
@@ -25,7 +26,7 @@ use([
   LegendComponent,
 ]);
 
-provide(THEME_KEY, 'dark');
+provide(THEME_KEY, 'white');
 
 const option = ref({
   title: {
@@ -58,7 +59,7 @@ const option = ref({
         itemStyle: {
           shadowBlur: 10,
           shadowOffsetX: 0,
-          shadowColor: 'rgba(0, 0, 0, 0.5)',
+          shadowColor: 'rgba(0, 0, 0, 1)',
         },
       },
     },

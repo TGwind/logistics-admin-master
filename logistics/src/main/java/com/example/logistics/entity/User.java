@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @TableName("user")
 public class User {
-    private String id;
+    private Integer id;
     private String name;
     private String password;
     private Integer permission;
